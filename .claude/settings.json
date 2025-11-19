@@ -1,0 +1,6 @@
+{
+  "model": "sonnet",
+  "allowedTools": ["Read", "Write", "Bash", "Grep", "Glob", "Edit", "Task"],
+  "maxTokens": 8192,
+  "temperature": 0.7
+}
