@@ -1,0 +1,16 @@
+{
+  "repositories": [
+    {
+      "name": "github-star-manager",
+      "url": "https://github.com/example/github-star-manager",
+      "description": "A tool for managing GitHub starred repositories",
+      "stars": 42,
+      "language": "TypeScript",
+      "lastUpdated": "2025-01-15T10:30:00Z"
+    }
+  ],
+  "metadata": {
+    "totalCount": 1,
+    "lastScanned": "2025-01-15T10:30:00Z"
+  }
+}
