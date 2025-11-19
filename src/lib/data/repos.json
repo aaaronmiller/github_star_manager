@@ -1,0 +1,52 @@
+[
+	{
+		"id": "modelcontextprotocol-servers",
+		"url": "https://github.com/modelcontextprotocol/servers",
+		"name": "servers",
+		"owner": "modelcontextprotocol",
+		"summary": "Model Context Protocol (MCP) is an open protocol that enables seamless integration between LLM applications and external data sources and tools. This repository contains reference implementations of MCP servers for various services like Brave Search, Filesystem, GitHub, and more.",
+		"createdAt": "2024-11-20T10:00:00Z",
+		"lastUpdatedAt": "2024-11-18T15:30:00Z",
+		"addedAt": "2024-11-19T09:00:00Z"
+	},
+	{
+		"id": "anthropics-anthropic-quickstarts",
+		"url": "https://github.com/anthropics/anthropic-quickstarts",
+		"name": "anthropic-quickstarts",
+		"owner": "anthropics",
+		"summary": "A collection of quickstart projects demonstrating integration patterns for Claude API. Includes examples for computer use, prompt caching, customer support agents, and document analysis with citation capabilities.",
+		"createdAt": "2024-09-15T12:00:00Z",
+		"lastUpdatedAt": "2024-11-15T10:20:00Z",
+		"addedAt": "2024-11-18T14:30:00Z"
+	},
+	{
+		"id": "sveltejs-kit",
+		"url": "https://github.com/sveltejs/kit",
+		"name": "kit",
+		"owner": "sveltejs",
+		"summary": "SvelteKit is a framework for building web applications of all sizes, with a beautiful development experience and flexible filesystem-based routing. Built on Svelte, it provides server-side rendering, static site generation, and progressive enhancement.",
+		"createdAt": "2020-10-16T08:00:00Z",
+		"lastUpdatedAt": "2024-11-19T02:15:00Z",
+		"addedAt": "2024-11-17T16:00:00Z"
+	},
+	{
+		"id": "honojs-hono",
+		"url": "https://github.com/honojs/hono",
+		"name": "hono",
+		"owner": "honojs",
+		"summary": "Hono is a small, simple, and ultrafast web framework for the Edges. It works on any JavaScript runtime including Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, AWS Lambda, and Node.js. With its middleware system and clean API, it's perfect for building modern APIs.",
+		"createdAt": "2021-12-14T09:00:00Z",
+		"lastUpdatedAt": "2024-11-18T18:45:00Z",
+		"addedAt": "2024-11-16T11:20:00Z"
+	},
+	{
+		"id": "bipark-swift_llm_bridge",
+		"url": "https://github.com/bipark/swift_llm_bridge",
+		"name": "swift_llm_bridge",
+		"owner": "bipark",
+		"summary": "A multi-platform LLM client for macOS and iOS supporting Ollama, LM Studio, Claude, and OpenAI. Provides a unified Swift interface for integrating various LLM providers into Apple platform applications.",
+		"createdAt": "2024-05-11T12:00:00Z",
+		"lastUpdatedAt": "2024-08-10T15:30:00Z",
+		"addedAt": "2024-08-12T10:00:00Z"
+	}
+]

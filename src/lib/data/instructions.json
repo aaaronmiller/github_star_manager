@@ -1,0 +1,231 @@
+{
+	"modelcontextprotocol-servers": {
+		"macOS": {
+			"summary": "Install using npm and configure servers via MCP settings file",
+			"steps": [
+				"Install Node.js 18+ if not already installed: brew install node",
+				"Clone the repository: git clone https://github.com/modelcontextprotocol/servers.git",
+				"Navigate to specific server directory: cd servers/src/[server-name]",
+				"Install dependencies: npm install",
+				"Build the server: npm run build",
+				"Configure in your Claude desktop config at ~/Library/Application\\ Support/Claude/claude_desktop_config.json"
+			],
+			"notes": "Each server has its own dependencies and configuration. Check individual server READMEs for specific requirements. Some servers require API keys."
+		},
+		"linux": {
+			"summary": "Install using npm and configure servers via MCP settings file",
+			"steps": [
+				"Install Node.js 18+: curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - && sudo apt-get install -y nodejs",
+				"Clone the repository: git clone https://github.com/modelcontextprotocol/servers.git",
+				"Navigate to specific server directory: cd servers/src/[server-name]",
+				"Install dependencies: npm install",
+				"Build the server: npm run build",
+				"Configure in your MCP client's config file"
+			],
+			"notes": "Requires Node.js 18 or higher. Some servers may require additional system dependencies."
+		},
+		"windows": {
+			"summary": "Install using npm via Node.js for Windows",
+			"steps": [
+				"Download and install Node.js 18+ from https://nodejs.org/",
+				"Clone the repository: git clone https://github.com/modelcontextprotocol/servers.git",
+				"Navigate to specific server directory: cd servers\\src\\[server-name]",
+				"Install dependencies: npm install",
+				"Build the server: npm run build",
+				"Configure in your MCP client's config file"
+			],
+			"notes": "Use PowerShell or Command Prompt. Some servers may have platform-specific limitations."
+		},
+		"docker": {
+			"summary": "Not the recommended approach for MCP servers",
+			"steps": [],
+			"notes": "MCP servers are designed to run as local processes that communicate with LLM applications. Docker containerization adds unnecessary complexity for this use case.",
+			"isPreferred": false,
+			"rationale": "MCP servers need direct filesystem and process access to integrate with local applications. Running in Docker would require complex volume mounting and networking configuration."
+		}
+	},
+	"anthropics-anthropic-quickstarts": {
+		"macOS": {
+			"summary": "Clone and run individual quickstart projects",
+			"steps": [
+				"Ensure Python 3.10+ or Node.js 18+ installed (depending on quickstart)",
+				"Clone the repository: git clone https://github.com/anthropics/anthropic-quickstarts.git",
+				"Navigate to desired quickstart: cd anthropic-quickstarts/[quickstart-name]",
+				"Follow the README in each quickstart directory for specific setup",
+				"Set ANTHROPIC_API_KEY environment variable: export ANTHROPIC_API_KEY='your-key-here'",
+				"Install dependencies and run as per quickstart instructions"
+			],
+			"notes": "Each quickstart is self-contained. Some require additional API keys or services. Check individual READMEs for specific requirements."
+		},
+		"linux": {
+			"summary": "Clone and run individual quickstart projects",
+			"steps": [
+				"Ensure Python 3.10+ or Node.js 18+ installed",
+				"Clone the repository: git clone https://github.com/anthropics/anthropic-quickstarts.git",
+				"Navigate to desired quickstart: cd anthropic-quickstarts/[quickstart-name]",
+				"Follow the README in each quickstart directory",
+				"Set ANTHROPIC_API_KEY: export ANTHROPIC_API_KEY='your-key-here'",
+				"Install dependencies and run as per quickstart instructions"
+			]
+		},
+		"windows": {
+			"summary": "Clone and run individual quickstart projects via PowerShell or WSL",
+			"steps": [
+				"Install Python 3.10+ or Node.js 18+ from official websites",
+				"Clone the repository: git clone https://github.com/anthropics/anthropic-quickstarts.git",
+				"Navigate to desired quickstart: cd anthropic-quickstarts\\[quickstart-name]",
+				"Follow the README in each quickstart directory",
+				"Set ANTHROPIC_API_KEY: $env:ANTHROPIC_API_KEY='your-key-here'",
+				"Install dependencies and run as per quickstart instructions"
+			],
+			"notes": "WSL2 recommended for better compatibility with some quickstarts. Computer use demo requires additional setup on Windows."
+		},
+		"docker": {
+			"summary": "Some quickstarts provide Docker configurations",
+			"steps": [
+				"Clone the repository: git clone https://github.com/anthropics/anthropic-quickstarts.git",
+				"Navigate to quickstart with Docker support",
+				"Check for docker-compose.yml or Dockerfile",
+				"Set ANTHROPIC_API_KEY in .env file",
+				"Run: docker-compose up"
+			],
+			"notes": "Not all quickstarts support Docker. Computer use demos may have limited functionality in containers.",
+			"isPreferred": false,
+			"rationale": "Most quickstarts are simple enough to run locally. Docker adds overhead without significant benefits for these educational examples."
+		}
+	},
+	"sveltejs-kit": {
+		"macOS": {
+			"summary": "Create new SvelteKit project using npm create",
+			"steps": [
+				"Ensure Node.js 18+ is installed: node --version",
+				"Create new project: npm create svelte@latest my-app",
+				"Follow the prompts to configure your project",
+				"Navigate to project: cd my-app",
+				"Install dependencies: npm install",
+				"Start dev server: npm run dev"
+			],
+			"notes": "SvelteKit requires Node.js 18.0 or higher. Use npm create svelte for latest templates."
+		},
+		"linux": {
+			"summary": "Create new SvelteKit project using npm create",
+			"steps": [
+				"Install Node.js 18+: curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - && sudo apt-get install -y nodejs",
+				"Create new project: npm create svelte@latest my-app",
+				"Follow configuration prompts",
+				"Navigate to project: cd my-app",
+				"Install dependencies: npm install",
+				"Start dev server: npm run dev"
+			]
+		},
+		"windows": {
+			"summary": "Create new SvelteKit project using npm",
+			"steps": [
+				"Download and install Node.js 18+ from https://nodejs.org/",
+				"Open PowerShell or Command Prompt",
+				"Create new project: npm create svelte@latest my-app",
+				"Follow configuration prompts",
+				"Navigate to project: cd my-app",
+				"Install dependencies: npm install",
+				"Start dev server: npm run dev"
+			]
+		},
+		"docker": {
+			"summary": "Development in Docker container",
+			"steps": [
+				"Create Dockerfile with Node.js 18+ base image",
+				"Mount project directory as volume",
+				"Expose port 5173 for dev server",
+				"Run: docker run -v $(pwd):/app -p 5173:5173 -it node:18 /bin/bash",
+				"Inside container: npm create svelte@latest . && npm install && npm run dev -- --host"
+			],
+			"notes": "Docker is useful for isolated development environments but adds complexity. HMR performance may be slower with volume mounts.",
+			"isPreferred": false,
+			"rationale": "SvelteKit's Vite dev server with HMR works best with direct filesystem access. Docker volume mounting can slow down hot reloading significantly."
+		}
+	},
+	"honojs-hono": {
+		"macOS": {
+			"summary": "Install via npm and create new Hono project",
+			"steps": [
+				"Create new project directory: mkdir my-hono-app && cd my-hono-app",
+				"Initialize npm project: npm init -y",
+				"Install Hono: npm install hono",
+				"Create index.ts with basic Hono app",
+				"For Cloudflare Workers: npm install -D wrangler",
+				"Run locally: npx wrangler dev index.ts"
+			],
+			"notes": "Hono can run on multiple runtimes. Choose adapter based on deployment target (Cloudflare Workers, Deno, Bun, Node.js)."
+		},
+		"linux": {
+			"summary": "Install via npm and create new Hono project",
+			"steps": [
+				"Create new project directory: mkdir my-hono-app && cd my-hono-app",
+				"Initialize npm project: npm init -y",
+				"Install Hono: npm install hono",
+				"Create index.ts with basic Hono app",
+				"Install runtime-specific dependencies if needed",
+				"Run with your chosen runtime (Node.js, Bun, Deno)"
+			]
+		},
+		"windows": {
+			"summary": "Install via npm and create new Hono project",
+			"steps": [
+				"Create new project directory: mkdir my-hono-app && cd my-hono-app",
+				"Initialize npm project: npm init -y",
+				"Install Hono: npm install hono",
+				"Create index.ts with basic Hono app",
+				"For Cloudflare Workers: npm install -D wrangler",
+				"Run locally: npx wrangler dev index.ts"
+			]
+		},
+		"docker": {
+			"summary": "Run Hono app in Docker container",
+			"steps": [
+				"Create Dockerfile with Node.js or Bun base image",
+				"COPY package files and install dependencies",
+				"COPY application code",
+				"EXPOSE appropriate port (usually 3000)",
+				"CMD to start your Hono server",
+				"Build: docker build -t my-hono-app .",
+				"Run: docker run -p 3000:3000 my-hono-app"
+			],
+			"notes": "Docker works well for Hono apps. However, for Cloudflare Workers deployment, use wrangler dev locally.",
+			"isPreferred": false,
+			"rationale": "While Docker works fine for containerized deployment, Hono shines on edge runtimes like Cloudflare Workers where Docker isn't applicable. Local development with wrangler or native runtime is simpler."
+		}
+	},
+	"bipark-swift_llm_bridge": {
+		"macOS": {
+			"summary": "Build and run using Xcode or Swift Package Manager",
+			"steps": [
+				"Clone the repository: git clone https://github.com/bipark/swift_llm_bridge.git",
+				"Open the project in Xcode: open swift_llm_bridge.xcodeproj",
+				"Select your target device (macOS or iOS simulator)",
+				"Configure API keys in the project settings if required",
+				"Build and run: Cmd+R"
+			],
+			"notes": "Requires Xcode 15.0+ and macOS 13.0+. For iOS target, you need an Apple Developer account for device testing."
+		},
+		"docker": {
+			"summary": "Not applicable for this iOS/macOS-specific project",
+			"steps": [],
+			"notes": "Docker is not suitable for Swift iOS/macOS development due to platform-specific requirements.",
+			"isPreferred": false,
+			"rationale": "Swift projects targeting Apple platforms require native Xcode toolchain and cannot run in Docker containers. iOS development specifically requires macOS and Xcode."
+		},
+		"mobile": {
+			"hostOS": "macOS",
+			"deviceOS": "iOS",
+			"summary": "Connect iOS device via USB or use iOS Simulator",
+			"steps": [
+				"Connect iPhone/iPad via USB cable",
+				"Trust the computer on your iOS device when prompted",
+				"In Xcode, select your device from the device dropdown",
+				"Ensure your Apple ID is configured in Xcode preferences",
+				"Build and run the project: Cmd+R"
+			],
+			"notes": "Physical device testing requires free or paid Apple Developer account. Simulator testing is free but may not support all LLM features."
+		}
+	}
+}

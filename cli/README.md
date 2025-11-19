@@ -1,62 +1,61 @@
-# GitHub Star Manager CLI
+# Agentic Update Assistant CLI
 
-A Python command-line tool for scanning directories and extracting Git repository information.
+A Python CLI tool for intelligent local repository management with AI-powered update analysis.
+
+## Features
+
+- Scan local directories for Git repositories
+- Compare local and remote repository states
+- AI-powered impact analysis of pending updates
+- Categorize updates by risk level (safe, needs review)
+- Generate safe update scripts for review
 
 ## Installation
+
+1. Install Python 3.11 or higher
+2. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Usage
-
-Basic usage:
-```bash
-python star_manager.py ~/projects
-```
-
-Specify output file:
-```bash
-python star_manager.py ~/projects -o custom.json
-```
-
-Adjust search depth and enable verbose output:
-```bash
-python star_manager.py ~/projects --depth 5 --verbose
-```
-
-## Options
-
-- `path` - Directory path to scan for repositories (required)
-- `-o, --output` - Output JSON file path (default: repos.json)
-- `-d, --depth` - Maximum directory depth to search (default: 3)
-- `-v, --verbose` - Enable verbose output
-
-## Output Format
-
-The tool generates a JSON file with the following structure:
+3. Create configuration file at `~/.config/repo-updater/config.json`:
 
 ```json
 {
-  "repositories": [
-    {
-      "name": "repo-name",
-      "url": "https://github.com/user/repo-name",
-      "description": "",
-      "lastUpdated": "2025-01-15T10:30:00Z"
-    }
-  ],
-  "metadata": {
-    "totalCount": 1,
-    "lastScanned": "2025-01-15T10:30:00Z"
-  }
+  "repo_root_dir": "/path/to/your/projects",
+  "github_token": "your_github_token_here",
+  "gemini_api_key": "your_gemini_api_key_here"
 }
 ```
 
-## Features
+## Usage
 
-- Recursively scans directories for Git repositories
-- Extracts repository metadata including remote URL and last commit date
-- Displays progress with rich terminal UI
-- Generates structured JSON output compatible with the API
-- Handles errors gracefully
+Run the updater:
+
+```bash
+python updater.py
+```
+
+This will:
+1. Scan your configured directory for Git repositories
+2. Check each repository for available updates
+3. Analyze changes using AI
+4. Display color-coded update recommendations
+5. Generate a safe update script
+
+## Configuration
+
+The tool reads configuration from `~/.config/repo-updater/config.json`:
+
+- `repo_root_dir`: Root directory to scan for repositories
+- `github_token`: GitHub personal access token (for higher API rate limits)
+- `gemini_api_key`: Google Gemini API key (for AI analysis)
+
+## Output
+
+- **Green**: Up-to-date repositories
+- **Yellow**: Safe to update (low risk)
+- **Red**: Needs review (breaking changes or high risk)
+
+Generated update scripts are saved to `update_script.sh` for manual review and execution.
