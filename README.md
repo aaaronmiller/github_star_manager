@@ -1,120 +1,359 @@
-# GitHub Star Manager
+# Agentic GitHub Star Manager
 
-A full-stack application for managing and visualizing GitHub starred repositories.
+An AI-powered platform for managing and maintaining your GitHub starred repositories with intelligent update analysis and multi-OS installation guides.
 
-## Overview
+## Features
 
-GitHub Star Manager consists of three main components:
+### Web Dashboard
+- **Repository Dashboard**: Browse, search, and sort your curated GitHub repositories
+- **Multi-OS Installation Guides**: Platform-specific instructions for macOS, Windows, Linux, and Docker
+- **AI-Powered Repository Ingestion**: Automatically extract metadata and installation instructions using Gemini AI
+- **Responsive Design**: Beautiful, mobile-friendly interface built with SvelteKit and Tailwind CSS
 
-1. **Backend API** - Hono-based REST API serving repository data
-2. **Frontend UI** - Svelte 5 application with grid and list views
-3. **CLI Tool** - Python script for scanning local Git repositories
+### CLI Tool
+- **Local Repository Scanning**: Automatically find all Git repositories in your projects directory
+- **Intelligent Update Analysis**: AI-powered analysis of pending updates using Gemini
+- **Risk Categorization**: Updates categorized as "up-to-date", "safe to update", or "needs review"
+- **Safe Update Scripts**: Generate shell scripts for low-risk updates
+- **Rich Terminal Output**: Color-coded results with detailed summaries
 
 ## Architecture
 
 ```
-github_star_manager/
-├── backend/           # Hono API (TypeScript)
-├── frontend/          # Svelte 5 UI (TypeScript)
-├── cli/              # Python CLI tool
-└── .claude/          # Claude Code agent configuration
+┌─────────────────────────────────────────────────────────┐
+│                    User (Developer)                      │
+└────────────┬────────────────────────────┬───────────────┘
+             │                            │
+             │ Browser                    │ Terminal
+             │                            │
+┌────────────▼────────────┐   ┌──────────▼──────────────┐
+│   SvelteKit Frontend    │   │   Python CLI Tool       │
+│  (Cloudflare Pages)     │   │                         │
+│                         │   │  - Repository scanner   │
+│  - Dashboard UI         │   │  - Update analyzer      │
+│  - Installation pages   │   │  - Script generator     │
+│  - Search/filter        │   │                         │
+└────────────┬────────────┘   └──────────┬──────────────┘
+             │                            │
+             │ API Calls                  │ GitHub API
+             │                            │
+┌────────────▼────────────┐              │
+│   SvelteKit API         │              │
+│   (Serverless)          │◄─────────────┘
+│                         │
+│  - GET /api/repos       │   ┌──────────────────┐
+│  - GET /api/instructions│──►│   Gemini API     │
+│  - POST /api/add-repo   │   │  (AI Analysis)   │
+└────────────┬────────────┘   └──────────────────┘
+             │
+             │ Read Data
+             │
+┌────────────▼────────────┐
+│   Data Store (JSON)     │
+│                         │
+│  - repos.json           │
+│  - instructions.json    │
+└─────────────────────────┘
 ```
 
-## Quick Start
+## Technology Stack
 
-### 1. Install Dependencies
+- **Frontend**: SvelteKit 2.x + Svelte 5 (Runes API) + Tailwind CSS
+- **Deployment**: Cloudflare Pages (SSG)
+- **API**: SvelteKit API routes with Zod validation
+- **AI Integration**: Google Gemini API
+- **CLI**: Python 3.11+ with Rich, Click, GitPython, PyGithub
+- **Data Storage**: JSON files in Git repository
 
-**Backend:**
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18.0 or higher
+- Python 3.11 or higher (for CLI tool)
+- Gemini API key ([Get one here](https://ai.google.dev/))
+- GitHub personal access token (optional, for higher rate limits)
+
+### Installation
+
+#### 1. Clone the repository
+
 ```bash
-cd backend
+git clone https://github.com/yourusername/agentic-github-star-manager.git
+cd agentic-github-star-manager
+```
+
+#### 2. Install frontend dependencies
+
+```bash
 npm install
 ```
 
-**Frontend:**
+#### 3. Set up environment variables
+
 ```bash
-cd frontend
-npm install
+cp .env.example .env
 ```
 
-**CLI:**
+Edit `.env` and add your API keys:
+
+```env
+GEMINI_API_KEY=your_gemini_api_key_here
+GITHUB_TOKEN=your_github_token_here
+```
+
+#### 4. Run the development server
+
+```bash
+npm run dev
+```
+
+The application will be available at http://localhost:5173
+
+#### 5. Install CLI tool (optional)
+
 ```bash
 cd cli
 pip install -r requirements.txt
 ```
 
-### 2. Generate Repository Data
-
-Scan your local directories for Git repositories:
+Create CLI configuration:
 
 ```bash
-cd cli
-python star_manager.py ~/projects -o ../backend/repos.json
+mkdir -p ~/.config/repo-updater
+cp config.example.json ~/.config/repo-updater/config.json
 ```
 
-### 3. Start the Backend
+Edit `~/.config/repo-updater/config.json`:
+
+```json
+{
+  "repo_root_dir": "/path/to/your/projects",
+  "github_token": "your_github_token",
+  "gemini_api_key": "your_gemini_api_key"
+}
+```
+
+Run the CLI:
 
 ```bash
-cd backend
-npm run dev
+python updater.py
 ```
 
-The API will be available at `http://localhost:3000`
+## Usage
 
-### 4. Start the Frontend
+### Adding Repositories
 
-```bash
-cd frontend
-npm run dev
+1. Navigate to the dashboard
+2. Enter a GitHub repository URL in the "Add New Repository" field
+3. Click "Add Repository"
+4. The AI will analyze the repository and extract metadata
+5. Review the generated data and commit to persist
+
+### Browsing Repositories
+
+- Use the search bar to filter repositories by name or description
+- Sort by "Date Added", "Last Updated", or "Created Date"
+- Click on any repository card to view detailed installation instructions
+
+### Installation Instructions
+
+Each repository detail page provides:
+- Multi-OS installation guides (macOS, Windows, Linux, Docker)
+- Step-by-step commands with copy buttons
+- Platform-specific notes and prerequisites
+- Mobile/device setup instructions when applicable
+
+### CLI Update Management
+
+Run the CLI tool to:
+1. Scan your local projects directory for Git repositories
+2. Check each repository against its remote
+3. Analyze pending updates with AI
+4. Get color-coded recommendations:
+   - **Green**: Up-to-date
+   - **Yellow**: Safe to update (low risk)
+   - **Red**: Needs review (breaking changes or high risk)
+5. Generate and review update scripts for safe updates
+
+## Deployment
+
+### Cloudflare Pages
+
+1. Push your code to GitHub
+2. Connect your repository to Cloudflare Pages
+3. Configure build settings:
+   - Build command: `npm run build`
+   - Build output directory: `.svelte-kit/cloudflare`
+4. Add environment variables in Cloudflare dashboard:
+   - `GEMINI_API_KEY`
+   - `GITHUB_TOKEN` (optional)
+5. Deploy!
+
+Your site will automatically rebuild on every push to your repository.
+
+## Data Schema
+
+### Repository Schema
+
+```typescript
+interface Repository {
+  id: string;                // "owner-repo_name" (lowercase)
+  url: string;              // Full GitHub URL
+  name: string;             // Repository name
+  owner: string;            // Owner/organization
+  summary: string;          // AI-generated summary
+  createdAt: string;        // ISO 8601 timestamp
+  lastUpdatedAt: string;    // ISO 8601 timestamp
+  addedAt: string;          // ISO 8601 timestamp
+}
 ```
 
-The UI will be available at `http://localhost:5173`
+### Instructions Schema
 
-## Features
+```typescript
+interface Instructions {
+  macOS?: OSInstructions;
+  windows?: OSInstructions;
+  linux?: OSInstructions;
+  docker?: DockerInstructions;
+  mobile?: MobileInstructions;
+}
 
-- Scan local directories for Git repositories
-- Extract repository metadata (name, URL, last commit)
-- REST API with Zod validation
-- Responsive grid and list views
-- Loading and error state handling
-- Production-ready builds
-- Automated linting (biome for TS/JS, ruff for Python)
+interface OSInstructions {
+  summary: string;
+  steps: string[];
+  notes?: string;
+}
+
+interface DockerInstructions extends OSInstructions {
+  isPreferred: boolean;
+  rationale: string;
+}
+
+interface MobileInstructions extends OSInstructions {
+  hostOS: string;
+  deviceOS: string;
+}
+```
+
+## API Endpoints
+
+### `GET /api/repos`
+
+Returns all repositories with optional sorting.
+
+**Query Parameters:**
+- `sort`: `dateAdded` | `lastUpdated` | `createdDate`
+
+**Response:**
+```json
+{
+  "repositories": [...],
+  "metadata": {
+    "totalCount": 5,
+    "lastScanned": "2024-11-19T12:00:00Z"
+  }
+}
+```
+
+### `GET /api/instructions/:id`
+
+Returns installation instructions for a specific repository.
+
+**Response:**
+```json
+{
+  "macOS": { ... },
+  "windows": { ... },
+  "linux": { ... },
+  "docker": { ... }
+}
+```
+
+### `POST /api/add-repo`
+
+Adds a new repository using AI analysis.
+
+**Request:**
+```json
+{
+  "urls": ["https://github.com/owner/repo"]
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "results": [...],
+  "message": "Processed 1 repository URL(s)"
+}
+```
 
 ## Development
 
-### Backend
+### Project Structure
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run lint` - Run linter
-- `npm run lint:fix` - Fix linting issues
+```
+agentic-github-star-manager/
+├── src/
+│   ├── lib/
+│   │   ├── data/
+│   │   │   ├── repos.json
+│   │   │   └── instructions.json
+│   │   ├── types.ts
+│   │   └── schemas.ts
+│   ├── routes/
+│   │   ├── api/
+│   │   │   ├── repos/+server.ts
+│   │   │   ├── instructions/[id]/+server.ts
+│   │   │   └── add-repo/+server.ts
+│   │   ├── repo/[id]/
+│   │   │   ├── +page.svelte
+│   │   │   └── +page.ts
+│   │   ├── +layout.svelte
+│   │   ├── +page.svelte
+│   │   └── +page.ts
+│   ├── app.html
+│   └── app.css
+├── cli/
+│   ├── updater.py
+│   ├── scanner.py
+│   ├── analyzer.py
+│   ├── script_generator.py
+│   ├── requirements.txt
+│   └── README.md
+├── static/
+├── package.json
+├── svelte.config.js
+├── vite.config.ts
+├── tailwind.config.js
+└── README.md
+```
 
-### Frontend
+### Available Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
-- `npm run lint` - Run linter
-- `npm run lint:fix` - Fix linting issues
+- `npm run check` - Type check
 
-### CLI
+## Contributing
 
-- `python star_manager.py <path>` - Scan directory
-- `python star_manager.py <path> --verbose` - Verbose output
-- `python star_manager.py <path> -o custom.json` - Custom output file
-
-## API Documentation
-
-See [backend/README.md](backend/README.md) for API endpoint documentation.
-
-## Claude Code Integration
-
-This project includes a complete Claude Code agent configuration in `.claude/`:
-
-- **Agents**: Specialized subagents for backend, frontend, and CLI
-- **Skills**: Domain-specific knowledge for Hono, Svelte, and Python
-- **Commands**: `/build-star-manager` orchestration command
-- **Hooks**: Pre-commit linting automation
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT
+See LICENSE file for details.
+
+## Acknowledgments
+
+- Built with [SvelteKit](https://kit.svelte.dev/)
+- Styled with [Tailwind CSS](https://tailwindcss.com/)
+- AI powered by [Google Gemini](https://ai.google.dev/)
+- Deployed on [Cloudflare Pages](https://pages.cloudflare.com/)
+
+## Related Documentation
+
+For comprehensive product requirements and architecture details, see [prd-2.md](./prd-2.md).
