@@ -12,21 +12,21 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@sveltejs/adapter-cloudflare": "^4.7.2",
-    "@sveltejs/kit": "^2.5.28",
-    "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "@sveltejs/adapter-cloudflare": "^7.2.8",
+    "@sveltejs/kit": "^2.56.1",
+    "@sveltejs/vite-plugin-svelte": "^7.0.0",
     "@types/node": "^22.7.5",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
-    "svelte": "^5.1.9",
+    "svelte": "^5.55.1",
     "svelte-check": "^4.0.4",
     "tailwindcss": "^3.4.13",
     "tslib": "^2.7.0",
     "typescript": "^5.6.3",
-    "vite": "^5.4.8"
+    "vite": "^8.0.3"
   },
   "dependencies": {
-    "hono": "^4.6.3",
+    "hono": "^4.12.7",
     "zod": "^3.23.8"
   }
 }
